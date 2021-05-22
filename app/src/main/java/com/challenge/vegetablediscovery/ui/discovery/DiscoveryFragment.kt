@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import com.challenge.vegetablediscovery.databinding.FragmentDiscoveryBinding
 import com.challenge.vegetablediscovery.ui.discovery.vegetablelist.VegetableListAdapter
