@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="DefaultTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+    </style>
+
+    <style name="TitleTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="DefaultCardViewStyle" parent="CardView">
+        <item name="cardCornerRadius">@dimen/card_corner_radius</item>
+        <item name="cardElevation">@dimen/card_elevation</item>
+    </style>
+
+</resources>
