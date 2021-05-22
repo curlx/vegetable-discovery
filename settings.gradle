@@ -1,0 +1,2 @@
+rootProject.name = "Vegetable discovery"
+include ':app'
