@@ -9,12 +9,26 @@
         android:id="@+id/navigation_discovery"
         android:name="com.challenge.vegetablediscovery.ui.discovery.DiscoveryFragment"
         android:label="@string/title_discovery"
-        tools:layout="@layout/fragment_discovery" />
+        tools:layout="@layout/fragment_discovery" >
+        <action
+            android:id="@+id/action_navigation_discovery_to_navigation_vegetable_detail"
+            app:destination="@id/navigation_vegetable_detail" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.challenge.vegetablediscovery.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
+
+    <dialog
+        android:id="@+id/navigation_vegetable_detail"
+        android:name="com.challenge.vegetablediscovery.ui.vegetabledetail.VegetableDetailModalFragment"
+        android:label="@string/title_vegetable_detail"
+        tools:layout="@layout/bottom_sheet_vegetable_detail" >
+        <argument
+            android:name="vegetable_id"
+            app:argType="long" />
+    </dialog>
 
 </navigation>

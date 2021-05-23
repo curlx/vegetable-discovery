@@ -1,4 +1,4 @@
-package com.challenge.vegetablediscovery.ui.discovery.vegetablelist
+package com.challenge.vegetablediscovery.ui.vegetablelist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

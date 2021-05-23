@@ -6,13 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.challenge.vegetablediscovery.databinding.FragmentDiscoveryBinding
-import com.challenge.vegetablediscovery.ui.discovery.vegetablelist.VegetableListAdapter
+import com.challenge.vegetablediscovery.ui.vegetablelist.VegetableListAdapter
 import com.challenge.vegetablediscovery.ui.discovery.viewmodel.DiscoveryViewModel
-import com.challenge.vegetablediscovery.ui.discovery.vegetablelist.VegetableListViewModel
+import com.challenge.vegetablediscovery.ui.vegetablelist.VegetableListViewModel
 
-class DiscoveryFragment : Fragment() {
+class DiscoveryFragment : Fragment(), VegetableListAdapter.Listener {
 
     private lateinit var discoveryViewModel: DiscoveryViewModel
     private lateinit var vegetableListViewModel: VegetableListViewModel
@@ -40,12 +41,17 @@ class DiscoveryFragment : Fragment() {
         setupVegetableRecyclerView()
     }
 
+    override fun onVegetableItemClick(vegetableId: Long) {
+        val direction = DiscoveryFragmentDirections.actionNavigationDiscoveryToNavigationVegetableDetail(vegetableId)
+        findNavController().navigate(direction)
+    }
+
     private fun setupVegetableRecyclerView() {
         binding.vegetableList.run {
             layoutManager = GridLayoutManager(this.context, 1)
 
             vegetableListViewModel.vegetables.observe(viewLifecycleOwner, {
-                adapter = VegetableListAdapter(it)
+                adapter = VegetableListAdapter(it, this@DiscoveryFragment)
                 invalidate()
             })
         }

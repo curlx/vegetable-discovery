@@ -1,6 +1,6 @@
-package com.challenge.vegetablediscovery.domain
+package com.challenge.vegetablediscovery.ui.vegetabledetail
 
-data class Vegetable(
+data class VegetableDetail(
     val id: Long,
     val name: String,
     val description: String,
