@@ -8,12 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.challenge.vegetablediscovery.databinding.FragmentDiscoveryBinding
 import com.challenge.vegetablediscovery.ui.vegetablelist.VegetableListAdapter
 import com.challenge.vegetablediscovery.ui.discovery.viewmodel.DiscoveryViewModel
 import com.challenge.vegetablediscovery.ui.vegetablelist.VegetableListViewModel
 
-class DiscoveryFragment : Fragment(), VegetableListAdapter.Listener {
+class DiscoveryFragment : Fragment(), VegetableListAdapter.Listener, SwipeRefreshLayout.OnRefreshListener {
 
     private lateinit var discoveryViewModel: DiscoveryViewModel
     private lateinit var vegetableListViewModel: VegetableListViewModel
@@ -39,7 +40,12 @@ class DiscoveryFragment : Fragment(), VegetableListAdapter.Listener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupVegetableRecyclerView()
+        binding.swipeContainer.setOnRefreshListener(this)
 
+        loadVegetableList()
+    }
+
+    override fun onRefresh() {
         loadVegetableList()
     }
 
@@ -59,6 +65,7 @@ class DiscoveryFragment : Fragment(), VegetableListAdapter.Listener {
         vegetableListViewModel.getVegetableList().observe(viewLifecycleOwner, {
             binding.vegetableList.adapter = VegetableListAdapter(it, this@DiscoveryFragment)
             binding.vegetableList.invalidate()
+            binding.swipeContainer.isRefreshing = false
         })
     }
 
