@@ -1,4 +1,4 @@
-package com.challenge.vegetablediscovery.domain
+package com.challenge.vegetablediscovery.domain.model
 
 data class Vegetable(
     val id: Long,

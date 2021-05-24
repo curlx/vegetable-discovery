@@ -39,6 +39,8 @@ class DiscoveryFragment : Fragment(), VegetableListAdapter.Listener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupVegetableRecyclerView()
+
+        loadVegetableList()
     }
 
     override fun onVegetableItemClick(vegetableId: Long) {
@@ -49,12 +51,15 @@ class DiscoveryFragment : Fragment(), VegetableListAdapter.Listener {
     private fun setupVegetableRecyclerView() {
         binding.vegetableList.run {
             layoutManager = GridLayoutManager(this.context, 1)
-
-            vegetableListViewModel.vegetables.observe(viewLifecycleOwner, {
-                adapter = VegetableListAdapter(it, this@DiscoveryFragment)
-                invalidate()
-            })
+            setHasFixedSize(true)
         }
+    }
+
+    private fun loadVegetableList() {
+        vegetableListViewModel.getVegetableList().observe(viewLifecycleOwner, {
+            binding.vegetableList.adapter = VegetableListAdapter(it, this@DiscoveryFragment)
+            binding.vegetableList.invalidate()
+        })
     }
 
     override fun onDestroyView() {

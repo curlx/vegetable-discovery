@@ -7,7 +7,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.transition.ViewPropertyTransition
 import com.challenge.vegetablediscovery.R
 import com.challenge.vegetablediscovery.databinding.ListItemVegetableBinding
-import com.challenge.vegetablediscovery.domain.Vegetable
+import com.challenge.vegetablediscovery.domain.model.Vegetable
 import com.challenge.vegetablediscovery.glide.GlideApp
 
 class VegetableListViewHolder(

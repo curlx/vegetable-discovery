@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.challenge.vegetablediscovery.databinding.ListItemVegetableBinding
-import com.challenge.vegetablediscovery.domain.Vegetable
+import com.challenge.vegetablediscovery.domain.model.Vegetable
 
 class VegetableListAdapter(
     private val vegetableList: List<Vegetable>,

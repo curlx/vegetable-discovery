@@ -11,6 +11,7 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.challenge.vegetablediscovery.R
 import com.challenge.vegetablediscovery.databinding.BottomSheetVegetableDetailBinding
+import com.challenge.vegetablediscovery.domain.model.Vegetable
 import com.challenge.vegetablediscovery.glide.GlideApp
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -32,19 +33,30 @@ class VegetableDetailModalFragment: BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         vegetableDetailViewModel = ViewModelProvider(this).get(VegetableDetailViewModel::class.java)
-        val vegetableDetail = vegetableDetailViewModel.getVegetableDetail(args.vegetableId)
 
-        binding.name.text = vegetableDetail.name
-        GlideApp.with(requireContext())
-            .load(vegetableDetail.imageUrl)
-            .transform(CenterCrop())
-            .placeholder(R.drawable.vegetable_placeholder)
-            .into(binding.image)
-        binding.description.text = vegetableDetail.description
+        vegetableDetailViewModel.getVegetableDetail(args.vegetableId).observe(viewLifecycleOwner, {
+            it?.let {
+                showVegetableDetail(it)
+            } ?: showNotFound()
+        })
 
         binding.closeButton.setOnClickListener {
             dismiss()
         }
+    }
+
+    private fun showVegetableDetail(vegetable: Vegetable) {
+        binding.name.text = vegetable.name
+        GlideApp.with(requireContext())
+            .load(vegetable.imageUrl)
+            .transform(CenterCrop())
+            .placeholder(R.drawable.vegetable_placeholder)
+            .into(binding.image)
+        binding.description.text = vegetable.description
+    }
+
+    private fun showNotFound() {
+
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
