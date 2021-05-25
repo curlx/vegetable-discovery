@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.challenge.vegetablediscovery.databinding.ListItemVegetableBinding
 import com.challenge.vegetablediscovery.domain.model.Vegetable
 
+// TODO: use list adapter
 class VegetableListAdapter(
     private val vegetableList: List<Vegetable>,
     private val listener: Listener

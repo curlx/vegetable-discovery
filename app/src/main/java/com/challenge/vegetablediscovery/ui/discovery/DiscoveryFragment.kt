@@ -4,15 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.challenge.vegetablediscovery.databinding.FragmentDiscoveryBinding
+import com.challenge.vegetablediscovery.domain.model.UpdateVegetableListResult
 import com.challenge.vegetablediscovery.ui.vegetablelist.VegetableListAdapter
 import com.challenge.vegetablediscovery.ui.discovery.viewmodel.DiscoveryViewModel
 import com.challenge.vegetablediscovery.ui.vegetablelist.VegetableListViewModel
+import kotlinx.coroutines.launch
 
 class DiscoveryFragment : Fragment(), VegetableListAdapter.Listener, SwipeRefreshLayout.OnRefreshListener {
 
@@ -42,11 +46,26 @@ class DiscoveryFragment : Fragment(), VegetableListAdapter.Listener, SwipeRefres
         setupVegetableRecyclerView()
         binding.swipeContainer.setOnRefreshListener(this)
 
-        loadVegetableList()
+        updateVegetableList()
     }
 
     override fun onRefresh() {
-        loadVegetableList()
+        updateVegetableList()
+    }
+
+    private fun updateVegetableList() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            val result = vegetableListViewModel.updateVegetableList()
+            when (result) {
+                // TODO: use string resource
+                UpdateVegetableListResult.Success -> "\uD83E\uDD51 Vegetable information updated"
+                is UpdateVegetableListResult.Failed -> result.message
+            }.also {
+                // TODO: change toast to a message bar
+                Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+            }
+            binding.swipeContainer.isRefreshing = false
+        }
     }
 
     override fun onVegetableItemClick(vegetableId: Long) {
@@ -59,13 +78,10 @@ class DiscoveryFragment : Fragment(), VegetableListAdapter.Listener, SwipeRefres
             layoutManager = GridLayoutManager(this.context, 1)
             setHasFixedSize(true)
         }
-    }
 
-    private fun loadVegetableList() {
         vegetableListViewModel.getVegetableList().observe(viewLifecycleOwner, {
             binding.vegetableList.adapter = VegetableListAdapter(it, this@DiscoveryFragment)
             binding.vegetableList.invalidate()
-            binding.swipeContainer.isRefreshing = false
         })
     }
 
