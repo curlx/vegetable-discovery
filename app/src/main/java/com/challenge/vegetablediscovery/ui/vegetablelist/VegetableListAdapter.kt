@@ -2,15 +2,13 @@ package com.challenge.vegetablediscovery.ui.vegetablelist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ListAdapter
 import com.challenge.vegetablediscovery.databinding.ListItemVegetableBinding
 import com.challenge.vegetablediscovery.domain.model.Vegetable
 
-// TODO: use list adapter
 class VegetableListAdapter(
-    private val vegetableList: List<Vegetable>,
     private val listener: Listener
-): RecyclerView.Adapter<VegetableListViewHolder>() {
+): ListAdapter<Vegetable, VegetableListViewHolder>(VegetableDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VegetableListViewHolder {
         val itemBinding = ListItemVegetableBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -19,15 +17,12 @@ class VegetableListAdapter(
     }
 
     override fun onBindViewHolder(holder: VegetableListViewHolder, position: Int) {
-        vegetableList[position].run {
-            holder.bind(this)
-            holder.itemView.setOnClickListener {
-                listener.onVegetableItemClick(id)
-            }
+        val vegetable = getItem(position)
+        holder.bind(vegetable)
+        holder.itemView.setOnClickListener {
+            listener.onVegetableItemClick(vegetable.id)
         }
     }
-
-    override fun getItemCount(): Int = vegetableList.size
 
     interface Listener {
         fun onVegetableItemClick(vegetableId: Long)
