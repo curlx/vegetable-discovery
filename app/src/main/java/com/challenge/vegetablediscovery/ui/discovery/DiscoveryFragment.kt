@@ -7,16 +7,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.challenge.vegetablediscovery.databinding.FragmentDiscoveryBinding
-import com.challenge.vegetablediscovery.domain.model.UpdateVegetableListResult
 import com.challenge.vegetablediscovery.ui.vegetablelist.VegetableListAdapter
 import com.challenge.vegetablediscovery.ui.discovery.viewmodel.DiscoveryViewModel
 import com.challenge.vegetablediscovery.ui.vegetablelist.VegetableListViewModel
-import kotlinx.coroutines.launch
 
 class DiscoveryFragment : Fragment(), VegetableListAdapter.Listener, SwipeRefreshLayout.OnRefreshListener {
 
@@ -46,6 +43,15 @@ class DiscoveryFragment : Fragment(), VegetableListAdapter.Listener, SwipeRefres
         setupVegetableRecyclerView()
         binding.swipeContainer.setOnRefreshListener(this)
 
+        vegetableListViewModel.statusMessage.observe(viewLifecycleOwner, {
+            it.getContentIfNotHandled()?.let { message ->
+                // TODO: use snackbar
+                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+            }
+        })
+        vegetableListViewModel.isRefreshing.observe(viewLifecycleOwner, {
+            binding.swipeContainer.isRefreshing = it
+        })
         updateVegetableList()
     }
 
@@ -54,18 +60,7 @@ class DiscoveryFragment : Fragment(), VegetableListAdapter.Listener, SwipeRefres
     }
 
     private fun updateVegetableList() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            val result = vegetableListViewModel.updateVegetableList()
-            when (result) {
-                // TODO: use string resource
-                UpdateVegetableListResult.Success -> "\uD83E\uDD51 Vegetable information updated"
-                is UpdateVegetableListResult.Failed -> result.message
-            }.also {
-                // TODO: change toast to a message bar
-                Toast.makeText(context, it, Toast.LENGTH_LONG).show()
-            }
-            binding.swipeContainer.isRefreshing = false
-        }
+        vegetableListViewModel.refreshVegetableList()
     }
 
     override fun onVegetableItemClick(vegetableId: Long) {
