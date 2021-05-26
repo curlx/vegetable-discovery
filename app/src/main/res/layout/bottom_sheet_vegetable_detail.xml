@@ -20,6 +20,7 @@
             android:fitsSystemWindows="true"
             app:contentScrim="@color/app_bar_content_scrim"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:scrimAnimationDuration="300"
             app:toolbarId="@id/toolbar">
 
             <ImageView
