@@ -14,11 +14,12 @@ import com.challenge.vegetablediscovery.databinding.FragmentDiscoveryBinding
 import com.challenge.vegetablediscovery.ui.vegetablelist.VegetableListAdapter
 import com.challenge.vegetablediscovery.ui.discovery.viewmodel.DiscoveryViewModel
 import com.challenge.vegetablediscovery.ui.vegetablelist.VegetableListViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DiscoveryFragment : Fragment(), VegetableListAdapter.Listener, SwipeRefreshLayout.OnRefreshListener {
 
     private lateinit var discoveryViewModel: DiscoveryViewModel
-    private lateinit var vegetableListViewModel: VegetableListViewModel
+    private val vegetableListViewModel: VegetableListViewModel by viewModel<VegetableListViewModel>()
     private var _binding: FragmentDiscoveryBinding? = null
 
     // This property is only valid between onCreateView and
@@ -31,7 +32,6 @@ class DiscoveryFragment : Fragment(), VegetableListAdapter.Listener, SwipeRefres
         savedInstanceState: Bundle?
     ): View? {
         discoveryViewModel = ViewModelProvider(this).get(DiscoveryViewModel::class.java)
-        vegetableListViewModel = ViewModelProvider(this).get(VegetableListViewModel::class.java)
 
         _binding = FragmentDiscoveryBinding.inflate(inflater, container, false)
 

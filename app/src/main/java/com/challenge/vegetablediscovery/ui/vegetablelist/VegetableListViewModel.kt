@@ -8,13 +8,12 @@ import androidx.lifecycle.viewModelScope
 import com.challenge.vegetablediscovery.base.Event
 import com.challenge.vegetablediscovery.domain.model.Vegetable
 import com.challenge.vegetablediscovery.repository.VegetableRepository
-import com.challenge.vegetablediscovery.repository.VegetableRepositoryImpl
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class VegetableListViewModel : ViewModel() {
-
-    private val vegetableRepository: VegetableRepository by lazy { VegetableRepositoryImpl() }
+class VegetableListViewModel(
+    private val vegetableRepository: VegetableRepository
+) : ViewModel() {
 
     private val _statusMessage: MutableLiveData<Event<String>> = MutableLiveData<Event<String>>()
     val statusMessage: LiveData<Event<String>> = _statusMessage

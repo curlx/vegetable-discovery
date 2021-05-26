@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.challenge.vegetablediscovery.R
@@ -16,6 +15,7 @@ import com.challenge.vegetablediscovery.glide.GlideApp
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class VegetableDetailModalFragment: BottomSheetDialogFragment() {
 
@@ -24,7 +24,7 @@ class VegetableDetailModalFragment: BottomSheetDialogFragment() {
     private var _binding: BottomSheetVegetableDetailBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var vegetableDetailViewModel: VegetableDetailViewModel
+    private val vegetableDetailViewModel: VegetableDetailViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = BottomSheetVegetableDetailBinding.inflate(inflater, container, false)
@@ -32,8 +32,6 @@ class VegetableDetailModalFragment: BottomSheetDialogFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        vegetableDetailViewModel = ViewModelProvider(this).get(VegetableDetailViewModel::class.java)
-
         vegetableDetailViewModel.getVegetableDetail(args.vegetableId).observe(viewLifecycleOwner, {
             it?.let {
                 showVegetableDetail(it)
