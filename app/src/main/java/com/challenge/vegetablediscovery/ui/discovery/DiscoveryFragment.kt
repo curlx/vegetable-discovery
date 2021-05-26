@@ -41,6 +41,10 @@ class DiscoveryFragment : Fragment(), VegetableListAdapter.Listener, SwipeRefres
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupVegetableRecyclerView()
+        subscribeViewModel()
+    }
+
+    private fun subscribeViewModel() {
         binding.swipeContainer.setOnRefreshListener(this)
 
         vegetableListViewModel.statusMessage.observe(viewLifecycleOwner, {
@@ -49,18 +53,19 @@ class DiscoveryFragment : Fragment(), VegetableListAdapter.Listener, SwipeRefres
                 Toast.makeText(context, message, Toast.LENGTH_LONG).show()
             }
         })
+
         vegetableListViewModel.isRefreshing.observe(viewLifecycleOwner, {
             binding.swipeContainer.isRefreshing = it
         })
-        updateVegetableList()
+
+        vegetableListViewModel.vegetables.observe(viewLifecycleOwner, { vegetables ->
+            binding.vegetableList.adapter = VegetableListAdapter(vegetables, this@DiscoveryFragment)
+            binding.vegetableList.invalidate()
+        })
     }
 
     override fun onRefresh() {
-        updateVegetableList()
-    }
-
-    private fun updateVegetableList() {
-        vegetableListViewModel.refreshVegetableList()
+        vegetableListViewModel.refreshVegetableCache()
     }
 
     override fun onVegetableItemClick(vegetableId: Long) {
@@ -73,11 +78,6 @@ class DiscoveryFragment : Fragment(), VegetableListAdapter.Listener, SwipeRefres
             layoutManager = GridLayoutManager(this.context, 1)
             setHasFixedSize(true)
         }
-
-        vegetableListViewModel.getVegetableList().observe(viewLifecycleOwner, {
-            binding.vegetableList.adapter = VegetableListAdapter(it, this@DiscoveryFragment)
-            binding.vegetableList.invalidate()
-        })
     }
 
     override fun onDestroyView() {

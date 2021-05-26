@@ -8,5 +8,5 @@ interface VegetableRepository {
 
     fun getVegetableList(): Flow<List<Vegetable>>
     fun getVegetable(vegetableId: Long): Flow<Vegetable?>
-    suspend fun updateVegetableList(): UpdateVegetableListResult
+    suspend fun refreshVegetableCache(): UpdateVegetableListResult
 }

@@ -26,7 +26,7 @@ class VegetableRepositoryImpl : VegetableRepository {
     override fun getVegetable(vegetableId: Long): Flow<Vegetable?> =
         vegetableDao.getVegetable(vegetableId).distinctUntilChanged()
 
-    override suspend fun updateVegetableList(): UpdateVegetableListResult {
+    override suspend fun refreshVegetableCache(): UpdateVegetableListResult {
         return try {
             vegetableApi.fetchVegetableList()
                 .mapNotNull(vegetableMapper::map)
