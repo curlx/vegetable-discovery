@@ -7,8 +7,8 @@ class VegetableResultToVegetableMapper : Mapper<VegetableResult, Vegetable?> {
 
     override fun map(input: VegetableResult): Vegetable? =
         input.run {
-            if (id != null && name != null && description != null) {
-                Vegetable(id = id, name = name, description = description, imageUrl = imageUrl ?: "")
+            if (id != null && name != null && imageUrl != null) {
+                Vegetable(id = id, name = name, description = description ?: "", imageUrl = imageUrl)
             } else {
                 null
             }
