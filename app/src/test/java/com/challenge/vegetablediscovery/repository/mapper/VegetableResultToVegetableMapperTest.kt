@@ -3,6 +3,7 @@ package com.challenge.vegetablediscovery.repository.mapper
 import com.challenge.vegetablediscovery.api.model.response.VegetableResult
 import com.challenge.vegetablediscovery.base.shouldEqual
 import com.challenge.vegetablediscovery.domain.model.Vegetable
+import com.challenge.vegetablediscovery.mock.NetworkModelMocks
 import org.junit.Before
 import org.junit.Test
 
@@ -57,11 +58,5 @@ class VegetableResultToVegetableMapperTest {
             )
     }
 
-    private val validVegetableResult =
-        VegetableResult(
-            id = 1L,
-            name = "name",
-            description = "description",
-            imageUrl = "imageUrl"
-        )
+    private val validVegetableResult = NetworkModelMocks.vegetableResult
 }

@@ -26,7 +26,8 @@ class VegetableRepositoryImpl(
         return try {
             vegetableApi.fetchVegetableList()
                 .mapNotNull(vegetableMapper::map)
-                .also { vegetableDao.insertAll(it) }
+                .takeIf { it.isNotEmpty() }
+                ?.also { vegetableDao.insertAll(it) }
             UpdateVegetableListResult.Success
         } catch (e: UnknownHostException) {
             // TODO: change this to string resource and also send log to crashlytics
