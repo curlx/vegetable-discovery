@@ -1,5 +1,6 @@
 *.iml
 *.apk
+*.aab
 output-metadata.json
 .gradle
 /local.properties
