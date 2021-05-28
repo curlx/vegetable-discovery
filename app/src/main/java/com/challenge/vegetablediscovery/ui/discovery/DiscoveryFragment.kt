@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.challenge.vegetablediscovery.R
 import com.challenge.vegetablediscovery.databinding.FragmentDiscoveryBinding
 import com.challenge.vegetablediscovery.ui.vegetablelist.VegetableListAdapter
 import com.challenge.vegetablediscovery.ui.discovery.viewmodel.DiscoveryViewModel
@@ -72,7 +73,7 @@ class DiscoveryFragment : Fragment(), VegetableListAdapter.Listener, SwipeRefres
         val adapter = VegetableListAdapter(this)
 
         binding.vegetableList.run {
-            layoutManager = GridLayoutManager(this.context, 1)
+            layoutManager = GridLayoutManager(this.context, resources.getInteger(R.integer.grid_size))
             setHasFixedSize(true)
             setAdapter(adapter)
         }
