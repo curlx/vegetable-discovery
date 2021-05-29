@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -21,6 +20,7 @@ import com.challenge.vegetablediscovery.ui.discovery.viewmodel.DiscoveryViewMode
 import com.challenge.vegetablediscovery.ui.vegetablelist.VegetableListViewModel
 import com.challenge.vegetablediscovery.ui.vitaminfilter.VitaminFilterListAdapter
 import com.challenge.vegetablediscovery.ui.vitaminfilter.VitaminFilterViewModel
+import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DiscoveryFragment : Fragment(), VegetableListAdapter.Listener, SwipeRefreshLayout.OnRefreshListener {
@@ -54,10 +54,12 @@ class DiscoveryFragment : Fragment(), VegetableListAdapter.Listener, SwipeRefres
     }
 
     private fun setupStatusView() {
-        vegetableListViewModel.statusMessage.observe(viewLifecycleOwner, {
+        vegetableListViewModel.issueMessage.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let { message ->
-                // TODO: use snackbar
-                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+                Snackbar.make(binding.constraintLayout, message, Snackbar.LENGTH_INDEFINITE).apply {
+                    setAction(R.string.ok) { dismiss() }
+                    setMaxInlineActionWidth(80)
+                }.show()
             }
         })
 
@@ -90,6 +92,7 @@ class DiscoveryFragment : Fragment(), VegetableListAdapter.Listener, SwipeRefres
         }
 
         vegetableListViewModel.vegetables.observe(viewLifecycleOwner, { vegetables ->
+            binding.vegetableList.isVisible = vegetables.isNotEmpty()
             adapter.submitList(vegetables)
         })
     }
@@ -105,7 +108,7 @@ class DiscoveryFragment : Fragment(), VegetableListAdapter.Listener, SwipeRefres
         // bind a vitamin filter to filter vegetable result
         val snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(binding.vitaminFilter)
-        binding.vitaminFilter.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+        binding.vitaminFilter.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {

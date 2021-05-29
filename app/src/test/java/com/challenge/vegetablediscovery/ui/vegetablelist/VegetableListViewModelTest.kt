@@ -1,5 +1,6 @@
 package com.challenge.vegetablediscovery.ui.vegetablelist
 
+import android.content.res.Resources
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.challenge.vegetablediscovery.base.MainCoroutineScopeRule
@@ -32,12 +33,15 @@ class VegetableListViewModelTest {
     @Mock
     private lateinit var vegetableRepository: VegetableRepository
 
+    @Mock
+    private lateinit var resources: Resources
+
     private lateinit var sut: VegetableListViewModel
 
     @Before
     fun setup() {
         vegetableRepository.getVegetableList() returns flow<List<Vegetable>> { }
-        sut = VegetableListViewModel(vegetableRepository)
+        initViewModel()
     }
 
     @Test
@@ -50,12 +54,16 @@ class VegetableListViewModelTest {
             delay(1000L)
             emit(secondVegetablesResponse)
         }
-        sut = VegetableListViewModel(vegetableRepository)
+        initViewModel()
         // Act
         sut.vegetables.observeForever(observer)
         // Assert
         verify(observer).onChanged(firstVegetablesResponse)
         coroutineScope.advanceTimeBy(1000L)
         verify(observer).onChanged(secondVegetablesResponse)
+    }
+
+    private fun initViewModel() {
+        sut = VegetableListViewModel(vegetableRepository, resources)
     }
 }

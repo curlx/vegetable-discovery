@@ -17,7 +17,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelModule = module {
-    viewModel { VegetableListViewModel(get()) }
+    viewModel { VegetableListViewModel(get(), androidContext().resources) }
     viewModel { VegetableDetailViewModel(get()) }
     viewModel { VitaminFilterViewModel() }
 }
