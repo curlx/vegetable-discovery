@@ -6,5 +6,6 @@ data class VegetableResult(
     @SerializedName("id") val id: Long? = null,
     @SerializedName("name") val name: String? = null,
     @SerializedName("description") val description: String? = null,
-    @SerializedName("imageUrl") val imageUrl: String? = null
+    @SerializedName("imageUrl") val imageUrl: String? = null,
+    @SerializedName("mainVitamin") val mainVitamin: String? = null
 )

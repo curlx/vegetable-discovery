@@ -8,6 +8,8 @@ import com.bumptech.glide.request.transition.ViewPropertyTransition
 import com.challenge.vegetablediscovery.R
 import com.challenge.vegetablediscovery.databinding.ListItemVegetableBinding
 import com.challenge.vegetablediscovery.domain.model.Vegetable
+import com.challenge.vegetablediscovery.extension.toBackgrounColor
+import com.challenge.vegetablediscovery.extension.toNameAndSubGroupName
 import com.challenge.vegetablediscovery.glide.GlideApp
 
 class VegetableListViewHolder(
@@ -31,5 +33,8 @@ class VegetableListViewHolder(
             .transform(CenterCrop())
             .placeholder(R.drawable.vegetable_placeholder)
             .into(itemBinding.image)
+
+        val (name, subGroupName) = vegetable.mainVitamin.toNameAndSubGroupName()
+        itemBinding.mainVitamin.setVitamin(name, subGroupName, vegetable.mainVitamin.toBackgrounColor())
     }
 }

@@ -3,6 +3,7 @@ package com.challenge.vegetablediscovery.repository.mapper
 import com.challenge.vegetablediscovery.api.model.response.VegetableResult
 import com.challenge.vegetablediscovery.base.shouldEqual
 import com.challenge.vegetablediscovery.domain.model.Vegetable
+import com.challenge.vegetablediscovery.domain.model.Vitamin
 import com.challenge.vegetablediscovery.mock.NetworkModelMocks
 import org.junit.Before
 import org.junit.Test
@@ -28,7 +29,8 @@ class VegetableResultToVegetableMapperTest {
                 id = 1L,
                 name = "name",
                 description = "description",
-                imageUrl = "imageUrl"
+                imageUrl = "imageUrl",
+                mainVitamin = Vitamin.B12
             )
     }
 
@@ -49,13 +51,17 @@ class VegetableResultToVegetableMapperTest {
 
     @Test
     fun `map vegetableresult without description should return vegetable with empty description`() {
-        sut.map(validVegetableResult.copy(description = null)) shouldEqual
-            Vegetable(
-                id = 1L,
-                name = "name",
-                description = "",
-                imageUrl = "imageUrl"
-            )
+        sut.map(validVegetableResult.copy(description = null))!!.description shouldEqual ""
+    }
+
+    @Test
+    fun `map vegetableresult without main vitamin should return vegetable with unknown vitamin`() {
+        sut.map(validVegetableResult.copy(mainVitamin = null))!!.mainVitamin shouldEqual Vitamin.UNKNOWN
+    }
+
+    @Test
+    fun `map vegetableresult with unpredefine vitamin should return vegetable with unknown vitamin`() {
+        sut.map(validVegetableResult.copy(mainVitamin = "NewVitamin"))!!.mainVitamin shouldEqual Vitamin.UNKNOWN
     }
 
     private val validVegetableResult = NetworkModelMocks.vegetableResult

@@ -9,5 +9,6 @@ data class Vegetable(
     @PrimaryKey val id: Long,
     val name: String,
     val description: String,
-    val imageUrl: String
+    val imageUrl: String,
+    val mainVitamin: Vitamin = Vitamin.UNKNOWN
 )
