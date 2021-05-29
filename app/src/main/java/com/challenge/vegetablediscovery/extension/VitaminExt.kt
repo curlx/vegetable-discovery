@@ -19,14 +19,15 @@ fun Vitamin.toNameAndSubGroupName(): Pair<String, String> =
         Vitamin.D -> Pair("D", "")
         Vitamin.E -> Pair("E", "")
         Vitamin.K -> Pair("K", "")
+        Vitamin.ALL -> Pair("", "All")
         else -> Pair("?", "")
     }
 
 @ColorRes
 fun Vitamin.toBackgrounColor(): Int =
     when (this) {
-        Vitamin.A -> R.color.yellow_500
-        Vitamin.B1 -> R.color.amber_500
+        Vitamin.A -> R.color.amber_500
+        Vitamin.B1 -> R.color.yellow_500
         Vitamin.B2 -> R.color.orange_500
         Vitamin.B3 -> R.color.deep_orange_500
         Vitamin.B5 -> R.color.red_500
@@ -38,5 +39,6 @@ fun Vitamin.toBackgrounColor(): Int =
         Vitamin.D -> R.color.lime_500
         Vitamin.E -> R.color.light_green_500
         Vitamin.K -> R.color.green_500
+        Vitamin.ALL -> R.color.deep_purple_500
         else -> R.color.grey_500
     }

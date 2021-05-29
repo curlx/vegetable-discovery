@@ -22,13 +22,14 @@ class VitaminExtKtTest {
         Vitamin.D.toNameAndSubGroupName() shouldEqual Pair("D", "")
         Vitamin.E.toNameAndSubGroupName() shouldEqual Pair("E", "")
         Vitamin.K.toNameAndSubGroupName() shouldEqual Pair("K", "")
+        Vitamin.ALL.toNameAndSubGroupName() shouldEqual Pair("", "All")
         Vitamin.UNKNOWN.toNameAndSubGroupName() shouldEqual Pair("?", "")
     }
 
     @Test
     fun `should get vitamin background color as expected`() {
-        Vitamin.A.toBackgrounColor() shouldEqual R.color.yellow_500
-        Vitamin.B1.toBackgrounColor() shouldEqual R.color.amber_500
+        Vitamin.A.toBackgrounColor() shouldEqual R.color.amber_500
+        Vitamin.B1.toBackgrounColor() shouldEqual R.color.yellow_500
         Vitamin.B2.toBackgrounColor() shouldEqual R.color.orange_500
         Vitamin.B3.toBackgrounColor() shouldEqual R.color.deep_orange_500
         Vitamin.B5.toBackgrounColor() shouldEqual R.color.red_500
@@ -40,6 +41,7 @@ class VitaminExtKtTest {
         Vitamin.D.toBackgrounColor() shouldEqual R.color.lime_500
         Vitamin.E.toBackgrounColor() shouldEqual R.color.light_green_500
         Vitamin.K.toBackgrounColor() shouldEqual R.color.green_500
+        Vitamin.ALL.toBackgrounColor() shouldEqual R.color.deep_purple_500
         Vitamin.UNKNOWN.toBackgrounColor() shouldEqual R.color.grey_500
     }
 }

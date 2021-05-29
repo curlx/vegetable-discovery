@@ -14,5 +14,6 @@ enum class Vitamin {
     D,
     E,
     K,
+    ALL,
     UNKNOWN
 }

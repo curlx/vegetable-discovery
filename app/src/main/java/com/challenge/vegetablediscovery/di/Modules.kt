@@ -11,6 +11,7 @@ import com.challenge.vegetablediscovery.repository.mapper.Mapper
 import com.challenge.vegetablediscovery.repository.mapper.VegetableResultToVegetableMapper
 import com.challenge.vegetablediscovery.ui.vegetabledetail.VegetableDetailViewModel
 import com.challenge.vegetablediscovery.ui.vegetablelist.VegetableListViewModel
+import com.challenge.vegetablediscovery.ui.vitaminfilter.VitaminFilterViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -18,6 +19,7 @@ import org.koin.dsl.module
 val viewModelModule = module {
     viewModel { VegetableListViewModel(get()) }
     viewModel { VegetableDetailViewModel(get()) }
+    viewModel { VitaminFilterViewModel() }
 }
 
 val repositoryModule = module {

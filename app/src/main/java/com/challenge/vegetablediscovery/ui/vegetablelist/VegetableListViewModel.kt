@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.challenge.vegetablediscovery.base.Event
 import com.challenge.vegetablediscovery.domain.model.Vegetable
@@ -34,6 +35,7 @@ class VegetableListViewModel(
     private fun launchDataLoad(block: suspend () -> Unit): Job {
         return viewModelScope.launch {
             try {
+                _isRefreshing.value = true
                 block()
                 _statusMessage.value = Event("\uD83E\uDD51 Vegetable information updated")
             } catch (error: Throwable) {

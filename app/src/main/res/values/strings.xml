@@ -3,4 +3,9 @@
     <string name="title_discovery">Discovery</string>
     <string name="title_vegetable_detail">Vegetable detail</string>
     <string name="title_dashboard">Dashboard</string>
+
+    <string name="no_result">Sorry, no results found</string>
+    <string name="please_try_or_check_later">"We're collecting more information, please try a different filter or check again later"</string>
+
+    <string name="swipe_left_right_to_filter">Swipe left or right to select a filter</string>
 </resources>
