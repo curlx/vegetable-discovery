@@ -54,7 +54,7 @@ class VegetableDetailModalFragment: BottomSheetDialogFragment() {
     }
 
     private fun showNotFound() {
-
+        // TODO: show not found
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

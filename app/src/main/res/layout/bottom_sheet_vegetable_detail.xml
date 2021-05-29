@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="@color/white_70_transparent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:layout_scrollFlags="exitUntilCollapsed"
             app:scrimAnimationDuration="300"
             app:toolbarId="@id/toolbar">
 
