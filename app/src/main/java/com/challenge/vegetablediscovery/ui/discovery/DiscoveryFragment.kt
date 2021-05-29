@@ -96,17 +96,36 @@ class DiscoveryFragment : Fragment(), VegetableListAdapter.Listener, SwipeRefres
 
     private fun setupVitaminFilterRecyclerView() {
         val adapter = VitaminFilterListAdapter(vitaminFilterViewModel.vitaminFilters)
+        val linearLayoutManager = LinearLayoutManager(this.context, RecyclerView.HORIZONTAL, false)
         binding.vitaminFilter.run {
-            layoutManager = LinearLayoutManager(this.context, RecyclerView.HORIZONTAL, false)
+            layoutManager = linearLayoutManager
             setHasFixedSize(true)
             setAdapter(adapter)
         }
+        // bind a vitamin filter to filter vegetable result
         val snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(binding.vitaminFilter)
+        binding.vitaminFilter.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    snapHelper.findSnapView(linearLayoutManager)?.let {
+                        val position = linearLayoutManager.getPosition(it)
+                        if (position != RecyclerView.NO_POSITION) {
+                            val snapVitamin = vitaminFilterViewModel.vitaminFilters[position]
+                            if (snapVitamin != vegetableListViewModel.selectedFilter.value) {
+                                vegetableListViewModel.setSelectedFilter(snapVitamin)
+                            }
+                        }
+                    }
+                }
+            }
+        })
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.vitaminFilter.clearOnScrollListeners()
         _binding = null
     }
 }
