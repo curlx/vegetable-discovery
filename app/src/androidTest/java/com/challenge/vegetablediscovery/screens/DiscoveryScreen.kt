@@ -19,5 +19,9 @@ class DiscoveryScreen: Screen<DiscoveryScreen>() {
     class MainItem(parent: Matcher<View>) : KRecyclerItem<MainItem>(parent) {
         val image: KImageView = KImageView(parent) { withId(R.id.image) }
         val name: KTextView = KTextView(parent) { withId(R.id.name) }
+        val mainVitamin: KTextView = KTextView(parent) {
+            isDescendantOfA { withId(R.id.main_vitamin) }
+            withId(R.id.text)
+        }
     }
 }

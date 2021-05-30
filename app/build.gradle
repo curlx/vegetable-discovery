@@ -18,7 +18,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.challenge.vegetablediscovery.MockTestRunner"
     }
 
     buildTypes {
@@ -79,6 +79,7 @@ dependencies {
     testImplementation "org.mockito.kotlin:mockito-kotlin:$mockito_kotlin"
     testImplementation "androidx.arch.core:core-testing:$arch_core_testing"
 
+    androidTestImplementation "androidx.test.ext:junit:$junit_ext"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso"
     androidTestImplementation "com.agoda.kakao:kakao:$kakao"
 }
