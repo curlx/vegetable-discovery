@@ -6,11 +6,12 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.challenge.vegetablediscovery.data.dao.VegetableDao
+import com.challenge.vegetablediscovery.data.entities.VegetableEntity
 import com.challenge.vegetablediscovery.domain.model.Vegetable
 
 @Database(
     version = 2,
-    entities = [Vegetable::class],
+    entities = [VegetableEntity::class],
     exportSchema = false
 )
 @TypeConverters(Converters::class)

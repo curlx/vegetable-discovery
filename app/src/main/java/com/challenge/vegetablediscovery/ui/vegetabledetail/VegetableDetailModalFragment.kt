@@ -10,7 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.challenge.vegetablediscovery.R
 import com.challenge.vegetablediscovery.databinding.BottomSheetVegetableDetailBinding
-import com.challenge.vegetablediscovery.domain.model.Vegetable
+import com.challenge.vegetablediscovery.domain.model.VegetableDetail
 import com.challenge.vegetablediscovery.glide.GlideApp
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -44,14 +44,14 @@ class VegetableDetailModalFragment: BottomSheetDialogFragment() {
         }
     }
 
-    private fun showVegetableDetail(vegetable: Vegetable) {
-        binding.name.text = vegetable.name
+    private fun showVegetableDetail(vegetableDetail: VegetableDetail) {
+        binding.name.text = vegetableDetail.name
         GlideApp.with(requireContext())
-            .load(vegetable.imageUrl)
+            .load(vegetableDetail.imageUrl)
             .transform(CenterCrop())
             .placeholder(R.drawable.vegetable_placeholder)
             .into(binding.image)
-        binding.description.text = vegetable.description
+        binding.description.text = vegetableDetail.description
     }
 
     private fun showNotFound(vegetableId: Long) {

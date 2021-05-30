@@ -4,11 +4,11 @@ import com.challenge.vegetablediscovery.api.VegetableApi
 import com.challenge.vegetablediscovery.api.model.response.VegetableResult
 import com.challenge.vegetablediscovery.data.AppDatabase
 import com.challenge.vegetablediscovery.data.dao.VegetableDao
-import com.challenge.vegetablediscovery.domain.model.Vegetable
+import com.challenge.vegetablediscovery.data.entities.VegetableEntity
 import com.challenge.vegetablediscovery.repository.VegetableRepository
 import com.challenge.vegetablediscovery.repository.VegetableRepositoryImpl
 import com.challenge.vegetablediscovery.repository.mapper.Mapper
-import com.challenge.vegetablediscovery.repository.mapper.VegetableResultToVegetableMapper
+import com.challenge.vegetablediscovery.repository.mapper.VegetableResultToVegetableEntityMapper
 import com.challenge.vegetablediscovery.ui.vegetabledetail.VegetableDetailViewModel
 import com.challenge.vegetablediscovery.ui.vegetablelist.VegetableListViewModel
 import com.challenge.vegetablediscovery.ui.vitaminfilter.VitaminFilterViewModel
@@ -33,7 +33,7 @@ val apiModule = module {
 }
 
 val mapperModule = module {
-    single<Mapper<VegetableResult, Vegetable?>> { VegetableResultToVegetableMapper() }
+    single<Mapper<VegetableResult, VegetableEntity?>> { VegetableResultToVegetableEntityMapper() }
 }
 
 val databaseModule = module {

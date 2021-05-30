@@ -6,7 +6,10 @@ import com.challenge.vegetablediscovery.base.returns
 import com.challenge.vegetablediscovery.base.shouldEqual
 import com.challenge.vegetablediscovery.base.shouldNotEqual
 import com.challenge.vegetablediscovery.data.dao.VegetableDao
+import com.challenge.vegetablediscovery.data.entities.VegetableEntity
 import com.challenge.vegetablediscovery.domain.model.Vegetable
+import com.challenge.vegetablediscovery.domain.model.VegetableDetail
+import com.challenge.vegetablediscovery.mock.DbModelMocks
 import com.challenge.vegetablediscovery.mock.DomainModelMocks
 import com.challenge.vegetablediscovery.mock.NetworkModelMocks
 import com.challenge.vegetablediscovery.repository.mapper.Mapper
@@ -32,7 +35,7 @@ class VegetableRepositoryImplTest {
     private lateinit var vegetableDao: VegetableDao
 
     @Mock
-    private lateinit var vegetableMapper: Mapper<VegetableResult, Vegetable?>
+    private lateinit var vegetableMapper: Mapper<VegetableResult, VegetableEntity?>
 
     private lateinit var sut: VegetableRepositoryImpl
 
@@ -111,13 +114,13 @@ class VegetableRepositoryImplTest {
     fun `when refresh vegetable cache should save new vegetable information from api into database`() = runBlockingTest {
         // Arrange
         val mockVegetableResult = NetworkModelMocks.vegetableResult
-        val mockVegetable = DomainModelMocks.vegetable
+        val mockVegetableEntity = DbModelMocks.vegetableEntity
         vegetableApi.fetchVegetableList() returns listOf(mockVegetableResult)
-        vegetableMapper.map(mockVegetableResult) returns mockVegetable
+        vegetableMapper.map(mockVegetableResult) returns mockVegetableEntity
         // Act
         sut.refreshVegetableCache()
         // Assert
-        verify(vegetableDao).insertAll(listOf(mockVegetable))
+        verify(vegetableDao).insertAll(listOf(mockVegetableEntity))
     }
 
     @Test
@@ -132,13 +135,13 @@ class VegetableRepositoryImplTest {
         verify(vegetableDao, never()).insertAll(anyList())
     }
 
-    private fun mockGettingVegetableFromDatabaseById(vegetableId: Long, isFound: Boolean = true, hasError: Boolean = false): Vegetable? =
+    private fun mockGettingVegetableFromDatabaseById(vegetableId: Long, isFound: Boolean = true, hasError: Boolean = false): VegetableDetail? =
         if (isFound) {
-            DomainModelMocks.vegetable.copy(id = vegetableId)
+            DomainModelMocks.vegetableDetail.copy(id = vegetableId)
         } else {
             null
         }.also {
-            vegetableDao.getVegetable(vegetableId) returns flow<Vegetable?> {
+            vegetableDao.getVegetable(vegetableId) returns flow<VegetableDetail?> {
                 if (!hasError) {
                     emit(it)
                 } else {

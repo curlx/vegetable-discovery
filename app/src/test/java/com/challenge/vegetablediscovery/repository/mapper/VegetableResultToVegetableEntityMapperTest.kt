@@ -2,19 +2,20 @@ package com.challenge.vegetablediscovery.repository.mapper
 
 import com.challenge.vegetablediscovery.api.model.response.VegetableResult
 import com.challenge.vegetablediscovery.base.shouldEqual
+import com.challenge.vegetablediscovery.data.entities.VegetableEntity
 import com.challenge.vegetablediscovery.domain.model.Vegetable
 import com.challenge.vegetablediscovery.domain.model.Vitamin
 import com.challenge.vegetablediscovery.mock.NetworkModelMocks
 import org.junit.Before
 import org.junit.Test
 
-class VegetableResultToVegetableMapperTest {
+class VegetableResultToVegetableEntityMapperTest {
 
-    private lateinit var sut: VegetableResultToVegetableMapper
+    private lateinit var sut: VegetableResultToVegetableEntityMapper
 
     @Before
     fun setUp() {
-        sut = VegetableResultToVegetableMapper()
+        sut = VegetableResultToVegetableEntityMapper()
     }
 
     @Test
@@ -23,9 +24,9 @@ class VegetableResultToVegetableMapperTest {
     }
 
     @Test
-    fun `map valid vegetableresult should return vegetable with information from vegetableresult`() {
+    fun `map valid vegetableresult should return vegetable entity with information from vegetableresult`() {
         sut.map(validVegetableResult) shouldEqual
-            Vegetable(
+            VegetableEntity(
                 id = 1L,
                 name = "name",
                 description = "description",

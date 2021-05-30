@@ -1,15 +1,15 @@
 package com.challenge.vegetablediscovery.repository.mapper
 
 import com.challenge.vegetablediscovery.api.model.response.VegetableResult
-import com.challenge.vegetablediscovery.domain.model.Vegetable
+import com.challenge.vegetablediscovery.data.entities.VegetableEntity
 import com.challenge.vegetablediscovery.domain.model.Vitamin
 
-class VegetableResultToVegetableMapper : Mapper<VegetableResult, Vegetable?> {
+class VegetableResultToVegetableEntityMapper : Mapper<VegetableResult, VegetableEntity?> {
 
-    override fun map(input: VegetableResult): Vegetable? =
+    override fun map(input: VegetableResult): VegetableEntity? =
         input.run {
             if (id != null && name != null && imageUrl != null) {
-                Vegetable(id = id, name = name, description = description ?: "", imageUrl = imageUrl, mainVitamin = mapMainVitamin(mainVitamin))
+                VegetableEntity(id = id, name = name, description = description ?: "", imageUrl = imageUrl, mainVitamin = mapMainVitamin(mainVitamin))
             } else {
                 null
             }
