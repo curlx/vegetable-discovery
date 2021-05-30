@@ -13,7 +13,7 @@ import com.challenge.vegetablediscovery.domain.model.Vegetable
 import com.challenge.vegetablediscovery.domain.model.Vitamin
 import com.challenge.vegetablediscovery.extension.toErrorMessage
 import com.challenge.vegetablediscovery.logger.Logger
-import com.challenge.vegetablediscovery.repository.VegetableRepository
+import com.challenge.vegetablediscovery.domain.contract.VegetableRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -34,6 +34,7 @@ class VegetableListViewModel(
     val isRefreshing: LiveData<Boolean> = _isRefreshing
 
     private val _loadTrigger: MutableLiveData<Unit> = MutableLiveData(Unit)
+    // automatically emit new vegetable list when the vegetable table updated in local database
     val vegetables: LiveData<List<Vegetable>> =
         _loadTrigger.switchMap {
             vegetableRepository.getVegetableList().map { getFilteredVegetable(it) }.asLiveData()

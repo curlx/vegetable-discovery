@@ -7,9 +7,9 @@ import com.challenge.vegetablediscovery.data.entities.VegetableEntity
 import com.challenge.vegetablediscovery.domain.model.Issue
 import com.challenge.vegetablediscovery.domain.model.Vegetable
 import com.challenge.vegetablediscovery.domain.model.VegetableDetail
+import com.challenge.vegetablediscovery.domain.contract.VegetableRepository
 import com.challenge.vegetablediscovery.logger.Logger
 import com.challenge.vegetablediscovery.repository.mapper.Mapper
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import java.net.UnknownHostException

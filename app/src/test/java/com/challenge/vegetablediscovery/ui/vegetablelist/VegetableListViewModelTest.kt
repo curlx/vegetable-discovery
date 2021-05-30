@@ -10,7 +10,7 @@ import com.challenge.vegetablediscovery.domain.model.Vegetable
 import com.challenge.vegetablediscovery.domain.model.Vitamin
 import com.challenge.vegetablediscovery.logger.Logger
 import com.challenge.vegetablediscovery.mock.DomainModelMocks
-import com.challenge.vegetablediscovery.repository.VegetableRepository
+import com.challenge.vegetablediscovery.domain.contract.VegetableRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import org.junit.Before

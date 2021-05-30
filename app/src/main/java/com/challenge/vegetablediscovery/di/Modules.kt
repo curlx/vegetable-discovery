@@ -7,7 +7,7 @@ import com.challenge.vegetablediscovery.data.dao.VegetableDao
 import com.challenge.vegetablediscovery.data.entities.VegetableEntity
 import com.challenge.vegetablediscovery.logger.CrashlyticsLoggerImpl
 import com.challenge.vegetablediscovery.logger.Logger
-import com.challenge.vegetablediscovery.repository.VegetableRepository
+import com.challenge.vegetablediscovery.domain.contract.VegetableRepository
 import com.challenge.vegetablediscovery.repository.VegetableRepositoryImpl
 import com.challenge.vegetablediscovery.repository.mapper.Mapper
 import com.challenge.vegetablediscovery.repository.mapper.VegetableResultToVegetableEntityMapper

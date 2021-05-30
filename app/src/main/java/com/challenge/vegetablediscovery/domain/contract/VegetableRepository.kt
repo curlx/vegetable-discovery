@@ -1,4 +1,4 @@
-package com.challenge.vegetablediscovery.repository
+package com.challenge.vegetablediscovery.domain.contract
 
 import com.challenge.vegetablediscovery.domain.model.Issue
 import com.challenge.vegetablediscovery.domain.model.Vegetable

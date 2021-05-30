@@ -34,7 +34,6 @@ class VegetableListFragment : Fragment(), VegetableListAdapter.Listener, SwipeRe
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentVegetableListBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
@@ -47,6 +46,7 @@ class VegetableListFragment : Fragment(), VegetableListAdapter.Listener, SwipeRe
     }
 
     private fun setupStatusView() {
+        // show a snackbar when there is an issue e.g. no internet connection
         vegetableListViewModel.issueMessage.observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let { message ->
                 Snackbar.make(binding.constraintLayout, message, Snackbar.LENGTH_INDEFINITE).apply {
@@ -56,11 +56,13 @@ class VegetableListFragment : Fragment(), VegetableListAdapter.Listener, SwipeRe
             }
         })
 
+        // bind pull refresh event to fetch data from network
         binding.swipeContainer.setOnRefreshListener(this)
         vegetableListViewModel.isRefreshing.observe(viewLifecycleOwner, {
             binding.swipeContainer.isRefreshing = it
         })
 
+        // observe to show no result
         vegetableListViewModel.vegetables.observe(viewLifecycleOwner, { vegetables ->
             binding.emptyVegetableInformation.isVisible = vegetables.isEmpty()
         })
