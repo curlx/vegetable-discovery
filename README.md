@@ -3,7 +3,7 @@ A show case application using MVVM architecture and Jetpack components (ViewMode
 
 <b>Features</b>
 - See some vegetables from Japan with a short desciption
-- Filter by a the vitamin from vegetable (mock data)  
+- Filter by the vitamin from vegetable (mock data)  
 - View information offline
 
 ![Screenshot_1622382213](https://user-images.githubusercontent.com/24450352/120106928-275cb700-c189-11eb-9c9e-a29194fb81b7.png)
