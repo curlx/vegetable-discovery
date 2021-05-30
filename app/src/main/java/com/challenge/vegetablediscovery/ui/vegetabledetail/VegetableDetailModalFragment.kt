@@ -15,6 +15,7 @@ import com.challenge.vegetablediscovery.glide.GlideApp
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class VegetableDetailModalFragment: BottomSheetDialogFragment() {
@@ -35,7 +36,7 @@ class VegetableDetailModalFragment: BottomSheetDialogFragment() {
         vegetableDetailViewModel.getVegetableDetail(args.vegetableId).observe(viewLifecycleOwner, {
             it?.let {
                 showVegetableDetail(it)
-            } ?: showNotFound()
+            } ?: showNotFound(args.vegetableId)
         })
 
         binding.closeButton.setOnClickListener {
@@ -53,8 +54,11 @@ class VegetableDetailModalFragment: BottomSheetDialogFragment() {
         binding.description.text = vegetable.description
     }
 
-    private fun showNotFound() {
-        // TODO: show not found
+    private fun showNotFound(vegetableId: Long) {
+        binding.name.text = getString(R.string.not_found_vegetable_detail)
+        binding.image.setImageResource(R.drawable.ic_no_result)
+        binding.description.text = ""
+        FirebaseCrashlytics.getInstance().log("Users cannot view vegetable detail of vegetable id $vegetableId")
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
