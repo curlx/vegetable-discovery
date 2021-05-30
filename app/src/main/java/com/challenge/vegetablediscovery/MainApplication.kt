@@ -3,6 +3,7 @@ package com.challenge.vegetablediscovery
 import android.app.Application
 import com.challenge.vegetablediscovery.di.apiModule
 import com.challenge.vegetablediscovery.di.databaseModule
+import com.challenge.vegetablediscovery.di.loggerModule
 import com.challenge.vegetablediscovery.di.mapperModule
 import com.challenge.vegetablediscovery.di.repositoryModule
 import com.challenge.vegetablediscovery.di.viewModelModule
@@ -22,7 +23,7 @@ open class MainApplication : Application() {
         startKoin {
             androidLogger(level = Level.INFO)
             androidContext(this@MainApplication)
-            modules(viewModelModule, repositoryModule, mapperModule, apiModule, databaseModule)
+            modules(viewModelModule, repositoryModule, mapperModule, apiModule, databaseModule, loggerModule)
         }
     }
 }

@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import com.challenge.vegetablediscovery.base.MainCoroutineScopeRule
 import com.challenge.vegetablediscovery.base.returns
 import com.challenge.vegetablediscovery.domain.model.Vegetable
+import com.challenge.vegetablediscovery.logger.Logger
 import com.challenge.vegetablediscovery.mock.DomainModelMocks
 import com.challenge.vegetablediscovery.repository.VegetableRepository
 import kotlinx.coroutines.delay
@@ -32,6 +33,9 @@ class VegetableListViewModelTest {
 
     @Mock
     private lateinit var vegetableRepository: VegetableRepository
+
+    @Mock
+    private lateinit var logger: Logger
 
     @Mock
     private lateinit var resources: Resources
@@ -64,6 +68,6 @@ class VegetableListViewModelTest {
     }
 
     private fun initViewModel() {
-        sut = VegetableListViewModel(vegetableRepository, resources)
+        sut = VegetableListViewModel(vegetableRepository, resources, logger)
     }
 }

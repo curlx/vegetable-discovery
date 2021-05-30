@@ -7,6 +7,7 @@ import com.challenge.vegetablediscovery.data.entities.VegetableEntity
 import com.challenge.vegetablediscovery.domain.model.Issue
 import com.challenge.vegetablediscovery.domain.model.Vegetable
 import com.challenge.vegetablediscovery.domain.model.VegetableDetail
+import com.challenge.vegetablediscovery.logger.Logger
 import com.challenge.vegetablediscovery.repository.mapper.Mapper
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.flow.Flow
@@ -16,7 +17,8 @@ import java.net.UnknownHostException
 class VegetableRepositoryImpl(
     private val vegetableApi: VegetableApi,
     private val vegetableDao: VegetableDao,
-    private val vegetableEntityMapper: Mapper<VegetableResult, VegetableEntity?>
+    private val vegetableEntityMapper: Mapper<VegetableResult, VegetableEntity?>,
+    private val logger: Logger
 ) : VegetableRepository {
 
     override fun getVegetableList(): Flow<List<Vegetable>> =
@@ -33,10 +35,10 @@ class VegetableRepositoryImpl(
                 ?.also { vegetableDao.insertAll(it) }
             Issue.NO_ISSUE
         } catch (e: UnknownHostException) {
-            FirebaseCrashlytics.getInstance().recordException(e)
+            logger.logException(e)
             Issue.INTERNET_CONNECTION
         } catch (e: Exception) {
-            FirebaseCrashlytics.getInstance().recordException(e)
+            logger.logException(e)
             Issue.UNKNOWN
         }
     }

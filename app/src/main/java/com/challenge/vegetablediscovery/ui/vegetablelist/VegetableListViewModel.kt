@@ -12,15 +12,16 @@ import com.challenge.vegetablediscovery.domain.model.Issue
 import com.challenge.vegetablediscovery.domain.model.Vegetable
 import com.challenge.vegetablediscovery.domain.model.Vitamin
 import com.challenge.vegetablediscovery.extension.toErrorMessage
+import com.challenge.vegetablediscovery.logger.Logger
 import com.challenge.vegetablediscovery.repository.VegetableRepository
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class VegetableListViewModel(
     private val vegetableRepository: VegetableRepository,
-    private val resources: Resources
+    private val resources: Resources,
+    private val logger: Logger
 ) : ViewModel() {
 
     private val _selectedFilter: MutableLiveData<Vitamin> = MutableLiveData<Vitamin>(Vitamin.ALL)
@@ -66,7 +67,7 @@ class VegetableListViewModel(
             try {
                 block()
             } catch (e: Throwable) {
-                FirebaseCrashlytics.getInstance().recordException(e)
+                logger.logException(e)
                 Issue.UNKNOWN.toErrorMessage(resources)?.let {
                     _issueMessage.value = Event(it)
                 }

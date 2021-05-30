@@ -9,6 +9,7 @@ import com.challenge.vegetablediscovery.data.dao.VegetableDao
 import com.challenge.vegetablediscovery.data.entities.VegetableEntity
 import com.challenge.vegetablediscovery.domain.model.Vegetable
 import com.challenge.vegetablediscovery.domain.model.VegetableDetail
+import com.challenge.vegetablediscovery.logger.Logger
 import com.challenge.vegetablediscovery.mock.DbModelMocks
 import com.challenge.vegetablediscovery.mock.DomainModelMocks
 import com.challenge.vegetablediscovery.mock.NetworkModelMocks
@@ -37,11 +38,14 @@ class VegetableRepositoryImplTest {
     @Mock
     private lateinit var vegetableMapper: Mapper<VegetableResult, VegetableEntity?>
 
+    @Mock
+    private lateinit var logger: Logger
+
     private lateinit var sut: VegetableRepositoryImpl
 
     @Before
     fun setup() {
-        sut = VegetableRepositoryImpl(vegetableApi, vegetableDao, vegetableMapper)
+        sut = VegetableRepositoryImpl(vegetableApi, vegetableDao, vegetableMapper, logger)
     }
 
     @Test
