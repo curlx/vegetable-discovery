@@ -65,6 +65,7 @@ class VegetableListViewModel(
     private fun launchDataLoad(block: suspend () -> Unit): Job {
         return viewModelScope.launch {
             try {
+                _isRefreshing.value = true
                 block()
             } catch (e: Throwable) {
                 logger.logException(e)
