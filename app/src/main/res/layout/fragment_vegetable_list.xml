@@ -5,7 +5,7 @@
     android:id="@+id/constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey_50"
+    android:background="@color/pink_50"
     android:padding="@dimen/space_small"
     tools:context=".ui.vegetablelist.VegetableListFragment">
 
@@ -66,12 +66,23 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+    <TextView
+        android:id="@+id/guide_message"
+        style="@style/TitleTextViewStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/guide_swipe"
+        app:layout_constraintBottom_toBottomOf="@id/vitamin_filter"
+        app:layout_constraintEnd_toEndOf="@id/vitamin_filter"
+        app:layout_constraintStart_toStartOf="@id/vitamin_filter"
+        app:layout_constraintTop_toTopOf="@+id/vitamin_filter" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vitamin_filter"
-        android:layout_width="100dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/space_small"
-        android:background="@drawable/solid_rectangle_round_corner"
+        android:background="@color/white_70_transparent"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
