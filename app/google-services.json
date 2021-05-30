@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "96007739715",
+    "project_id": "vegetable-discovery",
+    "storage_bucket": "vegetable-discovery.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:96007739715:android:47afd98d0c1d76c3a3f7f6",
+        "android_client_info": {
+          "package_name": "com.challenge.vegetablediscovery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "96007739715-8htu26mcl7gnpsfaocabqhh96slo8rhh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7HAz37NLGLjfoSNEVwO4mhcDa8qSOFFs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "96007739715-8htu26mcl7gnpsfaocabqhh96slo8rhh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

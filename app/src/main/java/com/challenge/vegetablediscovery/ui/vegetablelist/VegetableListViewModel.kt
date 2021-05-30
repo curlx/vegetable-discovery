@@ -13,6 +13,7 @@ import com.challenge.vegetablediscovery.domain.model.Vegetable
 import com.challenge.vegetablediscovery.domain.model.Vitamin
 import com.challenge.vegetablediscovery.extension.toErrorMessage
 import com.challenge.vegetablediscovery.repository.VegetableRepository
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -64,8 +65,8 @@ class VegetableListViewModel(
         return viewModelScope.launch {
             try {
                 block()
-            } catch (error: Throwable) {
-                // TODO: log to crashlytics
+            } catch (e: Throwable) {
+                FirebaseCrashlytics.getInstance().recordException(e)
                 Issue.UNKNOWN.toErrorMessage(resources)?.let {
                     _issueMessage.value = Event(it)
                 }

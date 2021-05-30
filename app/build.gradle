@@ -3,6 +3,8 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -22,7 +24,9 @@ android {
     buildTypes {
         debug {
             minifyEnabled false
-            applicationIdSuffix ".debug"
+            firebaseCrashlytics {
+                mappingFileUploadEnabled false
+            }
         }
         release {
             minifyEnabled true
@@ -65,6 +69,9 @@ dependencies {
     implementation "androidx.room:room-runtime:$room"
     implementation "androidx.room:room-ktx:$room"
     kapt "androidx.room:room-compiler:$room"
+    // Firebase
+    implementation platform("com.google.firebase:firebase-bom:$firebase_bom")
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
 
     testImplementation "junit:junit:$junit"
     testImplementation "com.google.truth:truth:$truth"
