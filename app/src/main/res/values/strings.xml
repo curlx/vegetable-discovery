@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">Vegetable discovery</string>
-    <string name="title_discovery">Discovery</string>
+    <string name="title_vegetable_list">Vegetable list</string>
     <string name="title_vegetable_detail">Vegetable detail</string>
-    <string name="title_dashboard">Dashboard</string>
 
     <string name="no_result">Sorry, no results found</string>
     <string name="please_try_or_check_later">"We're collecting more information, please try a different filter or check again later"</string>
