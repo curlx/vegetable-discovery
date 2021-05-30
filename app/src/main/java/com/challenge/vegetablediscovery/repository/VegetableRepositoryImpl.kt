@@ -3,9 +3,13 @@ package com.challenge.vegetablediscovery.repository
 import com.challenge.vegetablediscovery.api.VegetableApi
 import com.challenge.vegetablediscovery.api.model.response.VegetableResult
 import com.challenge.vegetablediscovery.data.dao.VegetableDao
-import com.challenge.vegetablediscovery.domain.model.UpdateVegetableListResult
+import com.challenge.vegetablediscovery.data.entities.VegetableEntity
+import com.challenge.vegetablediscovery.domain.model.Issue
 import com.challenge.vegetablediscovery.domain.model.Vegetable
+import com.challenge.vegetablediscovery.domain.model.VegetableDetail
+import com.challenge.vegetablediscovery.logger.Logger
 import com.challenge.vegetablediscovery.repository.mapper.Mapper
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import java.net.UnknownHostException
@@ -13,28 +17,29 @@ import java.net.UnknownHostException
 class VegetableRepositoryImpl(
     private val vegetableApi: VegetableApi,
     private val vegetableDao: VegetableDao,
-    private val vegetableMapper: Mapper<VegetableResult, Vegetable?>
+    private val vegetableEntityMapper: Mapper<VegetableResult, VegetableEntity?>,
+    private val logger: Logger
 ) : VegetableRepository {
 
     override fun getVegetableList(): Flow<List<Vegetable>> =
         vegetableDao.getVegetables()
 
-    override fun getVegetable(vegetableId: Long): Flow<Vegetable?> =
+    override fun getVegetable(vegetableId: Long): Flow<VegetableDetail?> =
         vegetableDao.getVegetable(vegetableId).distinctUntilChanged()
 
-    override suspend fun refreshVegetableCache(): UpdateVegetableListResult {
+    override suspend fun refreshVegetableCache(): Issue {
         return try {
             vegetableApi.fetchVegetableList()
-                .mapNotNull(vegetableMapper::map)
+                .mapNotNull(vegetableEntityMapper::map)
                 .takeIf { it.isNotEmpty() }
                 ?.also { vegetableDao.insertAll(it) }
-            UpdateVegetableListResult.Success
+            Issue.NO_ISSUE
         } catch (e: UnknownHostException) {
-            // TODO: change this to string resource and also send log to crashlytics
-            UpdateVegetableListResult.Failed("Cannot update vegetable information, please check the Internet connection and try again")
+            logger.logException(e)
+            Issue.INTERNET_CONNECTION
         } catch (e: Exception) {
-            // TODO: change this to string resource and also send log to crashlytics
-            UpdateVegetableListResult.Failed("There is a technical issue, we will fix the issue soon")
+            logger.logException(e)
+            Issue.UNKNOWN
         }
     }
 }

@@ -7,19 +7,13 @@
 
     <fragment
         android:id="@+id/navigation_discovery"
-        android:name="com.challenge.vegetablediscovery.ui.discovery.DiscoveryFragment"
-        android:label="@string/title_discovery"
-        tools:layout="@layout/fragment_discovery" >
+        android:name="com.challenge.vegetablediscovery.ui.vegetablelist.VegetableListFragment"
+        android:label="@string/title_vegetable_list"
+        tools:layout="@layout/fragment_vegetable_list" >
         <action
             android:id="@+id/action_navigation_discovery_to_navigation_vegetable_detail"
             app:destination="@id/navigation_vegetable_detail" />
     </fragment>
-
-    <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.challenge.vegetablediscovery.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
 
     <dialog
         android:id="@+id/navigation_vegetable_detail"

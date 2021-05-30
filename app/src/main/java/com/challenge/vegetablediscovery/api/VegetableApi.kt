@@ -12,13 +12,11 @@ interface VegetableApi {
     suspend fun fetchVegetableList(): List<VegetableResult>
 
     companion object {
-        private const val BASE_URL = "https://europe-west2-vegetable-discovery.cloudfunctions.net/"
-
-        fun create(): VegetableApi {
+        fun create(baseUrl: String): VegetableApi {
             val client = OkHttpClient.Builder().build()
 
             return Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(baseUrl)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

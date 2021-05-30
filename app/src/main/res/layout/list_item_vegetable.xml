@@ -25,11 +25,22 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@drawable/vegetable_placeholder" />
 
+        <com.challenge.vegetablediscovery.ui.customview.VitaminView
+            android:id="@+id/main_vitamin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.7"
+            android:padding="@dimen/space_small"
+            app:layout_constraintEnd_toEndOf="@id/image"
+            app:layout_constraintTop_toTopOf="@id/image" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/name"
             style="@style/TitleTextViewStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:padding="@dimen/space_small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

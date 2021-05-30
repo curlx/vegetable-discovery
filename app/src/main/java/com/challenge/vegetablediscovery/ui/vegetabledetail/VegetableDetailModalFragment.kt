@@ -10,11 +10,12 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.challenge.vegetablediscovery.R
 import com.challenge.vegetablediscovery.databinding.BottomSheetVegetableDetailBinding
-import com.challenge.vegetablediscovery.domain.model.Vegetable
+import com.challenge.vegetablediscovery.domain.model.VegetableDetail
 import com.challenge.vegetablediscovery.glide.GlideApp
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class VegetableDetailModalFragment: BottomSheetDialogFragment() {
@@ -35,7 +36,7 @@ class VegetableDetailModalFragment: BottomSheetDialogFragment() {
         vegetableDetailViewModel.getVegetableDetail(args.vegetableId).observe(viewLifecycleOwner, {
             it?.let {
                 showVegetableDetail(it)
-            } ?: showNotFound()
+            } ?: showNotFound(args.vegetableId)
         })
 
         binding.closeButton.setOnClickListener {
@@ -43,18 +44,21 @@ class VegetableDetailModalFragment: BottomSheetDialogFragment() {
         }
     }
 
-    private fun showVegetableDetail(vegetable: Vegetable) {
-        binding.name.text = vegetable.name
+    private fun showVegetableDetail(vegetableDetail: VegetableDetail) {
+        binding.name.text = vegetableDetail.name
         GlideApp.with(requireContext())
-            .load(vegetable.imageUrl)
+            .load(vegetableDetail.imageUrl)
             .transform(CenterCrop())
             .placeholder(R.drawable.vegetable_placeholder)
             .into(binding.image)
-        binding.description.text = vegetable.description
+        binding.description.text = vegetableDetail.description
     }
 
-    private fun showNotFound() {
-
+    private fun showNotFound(vegetableId: Long) {
+        binding.name.text = getString(R.string.not_found_vegetable_detail)
+        binding.image.setImageResource(R.drawable.ic_no_result)
+        binding.description.text = ""
+        FirebaseCrashlytics.getInstance().log("Users cannot view vegetable detail of vegetable id $vegetableId")
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/space_small"
+    android:background="@android:color/transparent">
+
+    <com.challenge.vegetablediscovery.ui.customview.VitaminView
+        android:id="@+id/vitamin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:layout_constraintEnd_toEndOf="@id/image"
+        app:layout_constraintTop_toTopOf="@id/image" />
+
+</FrameLayout>

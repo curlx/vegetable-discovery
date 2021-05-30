@@ -1,6 +1,18 @@
 <resources>
     <string name="app_name">Vegetable discovery</string>
-    <string name="title_discovery">Discovery</string>
+    <string name="title_vegetable_list">Vegetable list</string>
     <string name="title_vegetable_detail">Vegetable detail</string>
-    <string name="title_dashboard">Dashboard</string>
+
+    <string name="guide_swipe">&lt;  Swipe to filter by the vitamin</string>
+
+    <string name="no_result">Sorry, no results found</string>
+    <string name="please_try_or_check_later">"We're collecting more information, please try a different filter or check again later"</string>
+
+    <string name="not_found_vegetable_detail">Sorry, no information found. please try to refresh vegetable list on the home screen</string>
+
+    <!-- Issue-->
+    <string name="no_internet_connection">"Can't connect to a server. Please check the Internet connection and pull down to refresh"</string>
+    <string name="unknown_issue">Sorry, there is a technical issue, we will investigate and fix the issue soon</string>
+
+    <string name="ok">OK</string>
 </resources>
