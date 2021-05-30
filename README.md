@@ -1,15 +1,15 @@
 # vegetables-discovery
-A show case application using MVVM architecture and Jetpack components (ViewModel, LiveData, Flow, Rooms, Navigation) https://developer.android.com/jetpack
+A showcase application using MVVM architecture and Jetpack components (ViewModel, LiveData, Flow, Rooms, Navigation) https://developer.android.com/jetpack
 
 <b>Features</b>
-- See some vegetables from Japan with a short desciption
+- See some vegetables from Japan with a short description
 - Filter by the vitamin from vegetable (mock data)  
 - View information offline
 
 ![Screenshot_1622386627](https://user-images.githubusercontent.com/24450352/120111287-8d523a00-c19b-11eb-910f-fb1e4163cf8a.png) ![Screenshot_1622386633](https://user-images.githubusercontent.com/24450352/120111289-8f1bfd80-c19b-11eb-9152-fd8e58ae0895.png)
 
 </b>Develop with</b>
-- Android studio 4.2.1
+- Android Studio 4.2.1
 
 <b>Credit</b>
 
