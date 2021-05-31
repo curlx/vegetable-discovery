@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.challenge.vegetablediscovery.R
 import com.challenge.vegetablediscovery.databinding.FragmentVegetableListBinding
+import com.challenge.vegetablediscovery.extension.safeNavigate
 import com.challenge.vegetablediscovery.ui.vitaminfilter.VitaminFilterListAdapter
 import com.challenge.vegetablediscovery.ui.vitaminfilter.VitaminFilterViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -74,7 +75,7 @@ class VegetableListFragment : Fragment(), VegetableListAdapter.Listener, SwipeRe
 
     override fun onVegetableItemClick(vegetableId: Long) {
         val direction = VegetableListFragmentDirections.actionNavigationDiscoveryToNavigationVegetableDetail(vegetableId)
-        findNavController().navigate(direction)
+        findNavController().safeNavigate(direction)
     }
 
     private fun setupVegetableRecyclerView() {

@@ -6,6 +6,7 @@ import com.agoda.kakao.screen.Screen.Companion.onScreen
 import com.challenge.vegetablediscovery.MainActivity
 import com.challenge.vegetablediscovery.CommonMockTestRule
 import com.challenge.vegetablediscovery.api.model.response.VegetableResult
+import com.challenge.vegetablediscovery.extensions.waitUntil
 import com.challenge.vegetablediscovery.screens.VegetableListScreen
 import com.challenge.vegetablediscovery.screens.VegetableDetailScreen
 import org.junit.Rule
@@ -21,6 +22,7 @@ class VegetableInformationUiTest {
     @get:Rule
     val commonMockTestRule = CommonMockTestRule(mockVegetableList = getVegetableList())
 
+    // BottomSheetDialog show/dismiss are flaky with Espresso, workaround with waitUtil approach
     @Test
     fun usersCanSeeVegetableListAndCheckVegetableDetail() {
         onScreen<VegetableListScreen> {
@@ -34,19 +36,29 @@ class VegetableInformationUiTest {
                     mainVitamin { isVisible(); hasText("K") }
                     click()
                 }
-
                 onScreen<VegetableDetailScreen> {
+                    container { waitUntil(1_000L) { isVisible() } }
                     image { isVisible() }
                     name { isVisible(); hasText("Vegetable A") }
                     description { isVisible(); hasText("Vegetable A description") }
                     closeButton { isVisible(); click() }
                 }
+                waitUntil(1_000L) { isVisible() }
 
                 childAt<VegetableListScreen.MainItem>(1) {
                     image { isVisible() }
                     name { isVisible(); hasText("Vegetable B") }
                     mainVitamin { isVisible(); hasText("C") }
+                    doubleClick() // intended to do double click to check and check if it shows only detail screen
                 }
+                onScreen<VegetableDetailScreen> {
+                    container { waitUntil(1_000L) { isVisible() } }
+                    image { isVisible() }
+                    name { isVisible(); hasText("Vegetable B") }
+                    description { isVisible(); hasText("Vegetable B description") }
+                    container { swipeDown() } // another way to close the detail screen
+                }
+                waitUntil(1_000L) { isVisible() } // should see the list screen instead of another detail screen after double click
             }
         }
     }

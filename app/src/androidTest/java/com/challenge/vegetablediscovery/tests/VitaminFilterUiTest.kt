@@ -6,6 +6,7 @@ import com.agoda.kakao.screen.Screen.Companion.onScreen
 import com.challenge.vegetablediscovery.MainActivity
 import com.challenge.vegetablediscovery.CommonMockTestRule
 import com.challenge.vegetablediscovery.api.model.response.VegetableResult
+import com.challenge.vegetablediscovery.extensions.waitUntil
 import com.challenge.vegetablediscovery.screens.VegetableListScreen
 import org.junit.Rule
 import org.junit.Test
@@ -38,16 +39,14 @@ class VitaminFilterUiTest {
             vitaminFilter {
                 isVisible()
                 swipeLeft() // this test could be flaky because swipe has a different effect on different devices
-                Thread.sleep(3_000) // workaround - it should wait UI before proceed a next step, without Idling resource
             }
+            noResultView { waitUntil(3000L) { isVisible() } }
             vegetableList { isGone(); hasSize(0) }
-            noResultView { isVisible() }
 
             vitaminFilter {
                 swipeRight()
-                Thread.sleep(3_000)
             }
-            vegetableList { isVisible(); hasSize(1) }
+            vegetableList { waitUntil(3000L) { isVisible() }; hasSize(1) }
             noResultView { isGone() }
         }
     }
