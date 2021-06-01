@@ -1,5 +1,8 @@
 package com.challenge.vegetablediscovery.extensions
 
+import androidx.annotation.IntRange
+import com.agoda.kakao.common.assertions.BaseAssertions
+
 fun waitUntil(millisecond: Long, retryIntervalInMillisecond: Long = 100L, assertion: () -> Unit) {
     var hasException: Boolean = true
     var exception: Throwable? = null
@@ -17,4 +20,8 @@ fun waitUntil(millisecond: Long, retryIntervalInMillisecond: Long = 100L, assert
     if (hasException && exception != null) {
         throw exception
     }
+}
+
+fun BaseAssertions.isVisibleWithin(@IntRange(from = 100L) millisecond: Long) {
+    waitUntil(millisecond) { isVisible() }
 }

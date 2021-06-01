@@ -6,7 +6,7 @@ import com.agoda.kakao.screen.Screen.Companion.onScreen
 import com.challenge.vegetablediscovery.MainActivity
 import com.challenge.vegetablediscovery.CommonMockTestRule
 import com.challenge.vegetablediscovery.api.model.response.VegetableResult
-import com.challenge.vegetablediscovery.extensions.waitUntil
+import com.challenge.vegetablediscovery.extensions.isVisibleWithin
 import com.challenge.vegetablediscovery.screens.VegetableListScreen
 import com.challenge.vegetablediscovery.screens.VegetableDetailScreen
 import org.junit.Rule
@@ -37,13 +37,13 @@ class VegetableInformationUiTest {
                     click()
                 }
                 onScreen<VegetableDetailScreen> {
-                    container { waitUntil(1_000L) { isVisible() } }
+                    container { isVisibleWithin(1000L) }
                     image { isVisible() }
                     name { isVisible(); hasText("Vegetable A") }
                     description { isVisible(); hasText("Vegetable A description") }
                     closeButton { isVisible(); click() }
                 }
-                waitUntil(1_000L) { isVisible() }
+                isVisibleWithin(1000L)
 
                 childAt<VegetableListScreen.MainItem>(1) {
                     image { isVisible() }
@@ -52,13 +52,13 @@ class VegetableInformationUiTest {
                     doubleClick() // intended to do double click to check and check if it shows only detail screen
                 }
                 onScreen<VegetableDetailScreen> {
-                    container { waitUntil(1_000L) { isVisible() } }
+                    container { isVisibleWithin(1000L) }
                     image { isVisible() }
                     name { isVisible(); hasText("Vegetable B") }
                     description { isVisible(); hasText("Vegetable B description") }
                     container { swipeDown() } // another way to close the detail screen
                 }
-                waitUntil(1_000L) { isVisible() } // should see the list screen instead of another detail screen after double click
+                isVisibleWithin(1000L) // should see the list screen instead of another detail screen after double click
             }
         }
     }

@@ -6,7 +6,7 @@ import com.agoda.kakao.screen.Screen.Companion.onScreen
 import com.challenge.vegetablediscovery.MainActivity
 import com.challenge.vegetablediscovery.CommonMockTestRule
 import com.challenge.vegetablediscovery.api.model.response.VegetableResult
-import com.challenge.vegetablediscovery.extensions.waitUntil
+import com.challenge.vegetablediscovery.extensions.isVisibleWithin
 import com.challenge.vegetablediscovery.screens.VegetableListScreen
 import org.junit.Rule
 import org.junit.Test
@@ -40,13 +40,13 @@ class VitaminFilterUiTest {
                 isVisible()
                 swipeLeft() // this test could be flaky because swipe has a different effect on different devices
             }
-            noResultView { waitUntil(3000L) { isVisible() } }
+            noResultView { isVisibleWithin(3000L) }
             vegetableList { isGone(); hasSize(0) }
 
             vitaminFilter {
                 swipeRight()
             }
-            vegetableList { waitUntil(3000L) { isVisible() }; hasSize(1) }
+            vegetableList { isVisibleWithin(3000L); hasSize(1) }
             noResultView { isGone() }
         }
     }
